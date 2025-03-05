@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import './App.css'
-
+import CanvasWrapper from './Components/CanvasWrapper'
 import { Context } from './Store/AppContext'
 import VerticalNav from './Components/VerticalNav'
 
@@ -10,8 +10,9 @@ function App() {
 
 
   return (
-    <div className='bg-grey-500 text-5xl w-screen h-screen fixed'>
+    <div className='w-screen h-screen fixed'>
       <VerticalNav />
+      <CanvasWrapper />
     </div>
   )
 }

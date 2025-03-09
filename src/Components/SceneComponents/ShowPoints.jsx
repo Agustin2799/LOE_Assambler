@@ -1,14 +1,15 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useContext } from "react";
 import {
-  TextureLoader,
   BufferGeometry,
   Float32BufferAttribute,
   Points,
   PointsMaterial,
 } from "three";
+import { Context } from "../../Store/AppContext";
 
 const ShowPoints = ({ geometryRef, color = "white" }) => {
   const pointsRef = useRef();
+  const {store, actions} = useContext(Context)
 
     useEffect(() => {
       
@@ -19,6 +20,7 @@ const ShowPoints = ({ geometryRef, color = "white" }) => {
        * y 'position' es el atributo que define las posiciones de cada vértice.
        * 'array' es el arreglo que contiene las coordenadas X, Y y Z de los vértices.
        */
+
       const positions = geometryRef.current.attributes.position.array;
 
       // Crea una nueva geometría para los puntos.
@@ -62,11 +64,11 @@ const ShowPoints = ({ geometryRef, color = "white" }) => {
        * Esto permite organizar y manipular los puntos como parte de un grupo en la escena 3D.
        * Si 'pointsRef' está asociado a un objeto <group> en el escenario, los puntos se agregarán a dicho grupo.
        */
-      pointsRef.current.add(points);
+      pointsRef.current?.add(points);
     }
-  }, [color, geometryRef]);
+  }, [color, geometryRef, store.showVertices]);
 
-  return <group ref={pointsRef} />;
+  return store.showVertices ? <group ref={pointsRef} /> : null;
 };
 
 export default ShowPoints;

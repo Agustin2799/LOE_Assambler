@@ -1,8 +1,10 @@
-import React, { useEffect, useRef, forwardRef } from "react";
+import React, { useEffect, useRef, forwardRef, useContext } from "react";
 import { useLoader, useThree } from "@react-three/fiber"; // React Three Fiber
 import { TextureLoader } from "three"; // Específicamente para cargar texturas
 import mapImage from "/PrototipoConFiltro.jpg"; // Imagen para el mapa
 import ShowPoints from "./ShowPoints"; // Componente personalizado para puntos
+import AgregarPunto from "./agregarPunto";
+import { Context } from "../../Store/AppContext";
 
 /* Sobre useImperativeHandler y forwardRef.
 
@@ -19,6 +21,7 @@ useImperativeHandle(ref, () => ({
 Solo con utilizar forwardRef, ya exponemos la referencia.
 */
 const Mapa = forwardRef((props, ref) => {
+  const { store, actions } = useContext(Context)
   const mapRef = useRef();
   const meshRef = useRef(); 
 
@@ -41,6 +44,7 @@ const Mapa = forwardRef((props, ref) => {
         <planeGeometry args={[160, 120, 16, 12]} ref={meshRef} />
         <meshStandardMaterial map={texture} />
       </mesh>
+      <AgregarPunto coords={[store.coordenadas.hoveredCoords.x, store.coordenadas.hoveredCoords.y]} mostrarPunto={store.uiOptions.showCursorPunto} />
       <ShowPoints geometryRef={meshRef} color="red" />
     </group>
   );

@@ -4,7 +4,7 @@ import { useThree } from "@react-three/fiber";
 import { Context } from "../../Store/AppContext";
 
 const RayCaster = ({ canvasRef }) => {
-  const { actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
   const raycaster = useRef(new Raycaster());
   const mouse = useRef(new Vector2());
   const { camera, scene } = useThree();
@@ -27,6 +27,7 @@ const RayCaster = ({ canvasRef }) => {
 
     if (intersects.length > 0) {
       const intersectedPoint = intersects[0].point;
+    
       callback(intersectedPoint); // Ejecutar el callback con las coordenadas
     } else {
       callback(null); // Restablecer si no hay intersección
@@ -47,12 +48,12 @@ const RayCaster = ({ canvasRef }) => {
     const handleMouseUp = (event) => {
       // Ejecuta la acción solo si no se estaba arrastrando
       if (!isDragging.current) {
-        handleRaycaster(event, actions.setSelectedCoords);
+        handleRaycaster(event, actions.coordenadas.setSelectedCoords);
       }
     };
 
     const handleMouseMoveHover = (event) => {
-      handleRaycaster(event, actions.changeHoveredCoords);
+      handleRaycaster(event, actions.coordenadas.changeHoveredCoords);
     };
 
     if (canvas) {
@@ -70,9 +71,9 @@ const RayCaster = ({ canvasRef }) => {
         canvas.removeEventListener("mousemove", handleMouseMoveHover);
       }
     };
-  }, [camera, scene, canvasRef, actions]);
+  }, [camera, scene, canvasRef, store.coordenadas]);
 
   return null; // No es necesario renderizar nada, es solo lógica
-};
+}
 
 export default RayCaster;

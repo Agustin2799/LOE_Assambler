@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
  .hamburguer div:first-child {
-    @apply rotate-45 translate-y-1.5;
+    @apply rotate-45 translate-y-1;
   }
   .hamburguer div:last-child {
-    @apply -rotate-45 -translate-y-1;
+    @apply -rotate-45 -translate-y-0.5;
   }

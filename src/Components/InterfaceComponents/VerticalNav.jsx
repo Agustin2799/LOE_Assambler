@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import DropDownNav from "./DropDownNav";
 import CheckBox from "./CheckBox";
 import { Context } from "../../Store/AppContext";
@@ -7,23 +7,31 @@ const VerticalNav = () => {
   const [navIsOpen, setNavIsOpen] = useState(true);
   const { store, actions } = useContext(Context);
 
+  useEffect(() => {
+    console.log('Store en el VERTICALNAV:', store)
+  }, [store.coordenadas])
+
   return (
     <>
       {/* Boton hamburguesa */}
       <div
-        className={`rounded-full backdrop-blur-lg absolute bg-gray-700/70 top-5 left-[510px] p-5 w-12 h-12 flex justify-center items-center ${
-          !navIsOpen && "translate-x-[-500px]"
+        className={`rounded-full backdrop-blur-lg absolute bg-gray-700/70 top-5 left-[330px] p-4 w-6 h-6 flex justify-center items-center ${
+          !navIsOpen && "translate-x-[-320px]"
         } transition-all duration-500`}
         onClick={() => setNavIsOpen(!navIsOpen)}
       >
-        <div className={`space-y-2 ${navIsOpen && "hamburguer"} `}>
-          <div className="bg-white w-6 h-0.5 transition-all duration-300"></div>
-          <div className="bg-white w-6 h-0.5 transition-all duration-300"></div>
+        <div
+          className={`space-y-1 ${
+            navIsOpen ? "hamburguer" : "text-white"
+          } `}
+        >
+          <div className={`${navIsOpen ? `bg-emerald-300` : `bg-white`} w-4 h-0.5 transition-all duration-300 z-10`}></div>
+          <div className={`${navIsOpen ? `bg-emerald-300` : `bg-white`} w-4 h-0.5 transition-all duration-300 z-10`}></div>
         </div>
       </div>
       <div
-        className={`w-[500px] backdrop-blur-lg bg-gray-700/70 fixed top-0 left-0 min-h-screen ${
-          !navIsOpen && "translate-x-[-500px]"
+        className={`w-[320px] backdrop-blur-lg bg-gray-700/70 fixed top-0 left-0 min-h-screen ${
+          !navIsOpen && "translate-x-[-320px]"
         } transition-all duration-500`}
       >
         <DropDownNav name={"Opciones generales"}>
@@ -32,11 +40,15 @@ const VerticalNav = () => {
             <div className="text-white flex flex-col mr-4">
               <span>
                 X Seleccionada:{" "}
-                <span className="text-amber-500">{store.selectedCoords.x}</span>
+                <span className="text-amber-500">
+                  {store.coordenadas.selectedCoords.x}
+                </span>
               </span>
               <span>
                 Y Seleccionada:{" "}
-                <span className="text-amber-500">{store.selectedCoords.y}</span>
+                <span className="text-amber-500">
+                  {store.coordenadas.selectedCoords.y}
+                </span>
               </span>
             </div>
 
@@ -44,22 +56,26 @@ const VerticalNav = () => {
             <div className="text-white flex flex-col">
               <span>
                 X En hover:{" "}
-                <span className="text-amber-500">{store.hoveredCoords.x}</span>
+                <span className="text-amber-500">
+                  {store.coordenadas.hoveredCoords.x}
+                </span>
               </span>
               <span>
                 Y En hover:{" "}
-                <span className="text-amber-500">{store.hoveredCoords.y}</span>
+                <span className="text-amber-500">
+                  {store.coordenadas.hoveredCoords.y}
+                </span>
               </span>
             </div>
           </div>
 
           <CheckBox
             text={"Vértices del mapa"}
-            action={() => actions.changeShowVertices()}
+            action={() => actions.uiOptions.changeShowVertices()}
           />
           <CheckBox
             text={"Agregar punto"}
-            action={() => actions.changeAgregarPunto()}
+            action={() => actions.uiOptions.changeShowCursorPunto()}
           />
         </DropDownNav>
         <DropDownNav name={"opciones de ejemplo"}>

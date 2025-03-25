@@ -1,7 +1,7 @@
 import React from "react";
 import { Shape } from "three";
 
-const DibujaTerritorio = ({ coordenadas, color = "orange", opacity = 0.5 }) => {
+const DibujaTerritorio = ({ coordenadas, color = "orange", opacity = 0.3 }) => {
   if (!coordenadas || coordenadas.length < 3) {
     console.error(
       "Se necesitan al menos 3 coordenadas para formar una figura."

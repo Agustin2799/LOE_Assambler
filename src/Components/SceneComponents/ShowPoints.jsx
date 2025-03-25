@@ -66,9 +66,9 @@ const ShowPoints = ({ geometryRef, color = "white" }) => {
        */
       pointsRef.current?.add(points);
     }
-  }, [color, geometryRef, store.showVertices]);
+  }, [color, geometryRef, store.uiOptions.showVertices]);
 
-  return store.showVertices ? <group ref={pointsRef} /> : null;
+  return store.uiOptions.showVertices ? <group ref={pointsRef} /> : null;
 };
 
 export default ShowPoints;

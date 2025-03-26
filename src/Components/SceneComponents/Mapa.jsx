@@ -44,7 +44,7 @@ const Mapa = forwardRef((props, ref) => {
         <planeGeometry args={[160, 120, 16, 12]} ref={meshRef} />
         <meshStandardMaterial map={texture} />
       </mesh>
-      <AgregarPunto coords={[store.coordenadas.hoveredCoords.x, store.coordenadas.hoveredCoords.y]} mostrarPunto={store.uiOptions.showCursorPunto} />
+      <AgregarPunto coords={[store.coordenadas.hoveredCoords.x, store.coordenadas.hoveredCoords.y]} mostrarPunto={store.uiOptions.showCursorPunto || store.uiOptions.showTerritoriosNav} />
       <ShowPoints geometryRef={meshRef} color="red" />
     </group>
   );

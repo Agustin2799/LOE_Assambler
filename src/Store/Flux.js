@@ -3,7 +3,10 @@ const defineStore = ({ getActions, getStore, setStore }) => {
         store: {
             uiOptions: {
                 showVertices: false,
-                showCursorPunto: false
+                showCursorPunto: false,
+                showTerritoriosNav: true,
+                showGeneralNav: true,
+
             },
             coordenadas: {
                 selectedCoords: { x: 0, y: 0 },
@@ -35,8 +38,18 @@ const defineStore = ({ getActions, getStore, setStore }) => {
         },
         actions: {
             uiOptions: {
+                changeShowTerritoriosNav: () => {
+                    const store = getStore();
+                    setStore({
+                        ...store,
+                        uiOptions: {
+                            ...store.uiOptions,
+                            showTerritoriosNav: !store.uiOptions.showTerritoriosNav
+                        }
+                    });
+                },
                 changeShowVertices: () => {
-                    console.log('Dentro del changeShowVertices en flux')
+                    // console.log('Dentro del changeShowVertices en flux')
                     const store = getStore();
                     setStore({
                         ...store,
@@ -45,10 +58,10 @@ const defineStore = ({ getActions, getStore, setStore }) => {
                             showVertices: !store.uiOptions.showVertices
                         }
                     });
-                    console.log('showVertices cambió', getStore().uiOptions.showVertices);
+                    // console.log('showVertices cambió', getStore().uiOptions.showVertices);
                 },
                 changeShowCursorPunto: () => {
-                    console.log('Dentro del changeAgregarRegion en flux')
+                    // console.log('Dentro del changeAgregarRegion en flux')
 
                     const store = getStore();
                     setStore({
@@ -74,7 +87,7 @@ const defineStore = ({ getActions, getStore, setStore }) => {
                             }
                         }
                     });
-                    console.log('hoveredCoords cambió', getStore().coordenadas.hoveredCoords);
+                    // console.log('hoveredCoords cambió', store.coordenadas.hoveredCoords);
                 },
                 setSelectedCoords: (coordsObject) => {
                     const store = getStore();
@@ -88,7 +101,7 @@ const defineStore = ({ getActions, getStore, setStore }) => {
                             }
                         }
                     });
-                    console.log('selectedCoords cambió', getStore().coordenadas.selectedCoords);
+                    // console.log('selectedCoords cambió', store.coordenadas.selectedCoords);
                 }
             },
             scene: {}

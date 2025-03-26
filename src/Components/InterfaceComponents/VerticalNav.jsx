@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import DropDownNav from "./DropDownNav";
 import CheckBox from "./CheckBox";
+import TerritoriosNav from "./TerritoriosNav";
 import { Context } from "../../Store/AppContext";
 
 const VerticalNav = () => {
@@ -21,12 +22,18 @@ const VerticalNav = () => {
         onClick={() => setNavIsOpen(!navIsOpen)}
       >
         <div
-          className={`space-y-1 ${
-            navIsOpen ? "hamburguer" : "text-white"
-          } `}
+          className={`space-y-1 ${navIsOpen ? "hamburguer" : "text-white"} `}
         >
-          <div className={`${navIsOpen ? `bg-emerald-300` : `bg-white`} w-4 h-0.5 transition-all duration-300 z-10`}></div>
-          <div className={`${navIsOpen ? `bg-emerald-300` : `bg-white`} w-4 h-0.5 transition-all duration-300 z-10`}></div>
+          <div
+            className={`${
+              navIsOpen ? `bg-emerald-300` : `bg-white`
+            } w-4 h-0.5 transition-all duration-300 z-10`}
+          ></div>
+          <div
+            className={`${
+              navIsOpen ? `bg-emerald-300` : `bg-white`
+            } w-4 h-0.5 transition-all duration-300 z-10`}
+          ></div>
         </div>
       </div>
       <div
@@ -34,7 +41,7 @@ const VerticalNav = () => {
           !navIsOpen && "translate-x-[-320px]"
         } transition-all duration-500`}
       >
-        <DropDownNav name={"Opciones generales"}>
+        <DropDownNav name={"Opciones generales"} navIsOpen={true}>
           <div className="flex flex-row">
             {/* Coordenadas seleccionadas */}
             <div className="text-white flex flex-col mr-4">
@@ -78,11 +85,12 @@ const VerticalNav = () => {
             action={() => actions.uiOptions.changeShowCursorPunto()}
           />
         </DropDownNav>
-        <DropDownNav name={"opciones de ejemplo"}>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Autem,
-          deleniti molestias. Repellendus illum a sint! Fugit velit voluptates
-          alias, suscipit fuga hic tempora facilis dolor perferendis cumque
-          dicta accusantium et.
+        <DropDownNav
+          name={"Territorios"}
+          navIsOpen={store.uiOptions.showTerritoriosNav}
+          action={() => actions.uiOptions.changeShowTerritoriosNav()}
+        >
+          <TerritoriosNav navIsOpen={store.uiOptions.showTerritoriosNav} />
         </DropDownNav>
       </div>
     </>

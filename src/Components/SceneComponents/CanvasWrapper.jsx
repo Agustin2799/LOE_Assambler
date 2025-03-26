@@ -15,7 +15,7 @@ const CanvasWrapper = () => {
         ref={canvasRef}
         style={{ background: "#212529" }}
         className="-z-10"
-        camera={{ position: [0, 0, 250], fov: 50 }}
+        camera={{ position: [0, 0, 100], fov: 50 }}
       >
         {/* Ambiente */}
         <ambientLight intensity={1} />

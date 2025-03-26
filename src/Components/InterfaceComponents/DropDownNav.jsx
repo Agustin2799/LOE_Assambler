@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { Context } from "../../Store/AppContext";
 
-const DropDownNav = ({ name, children }) => {
-  const [dropIsOpen, setDropIsOpen] = useState(false);
+const DropDownNav = ({ name, children, navIsOpen = false, action}) => {
+  const [dropIsOpen, setDropIsOpen] = useState(navIsOpen);
+  const {store, actions} = useContext(Context)
+
+  
   return (
     <div className="w-full h-min flex flex-col">
+     
       <div
-        className={`w-full h-auto p-1 cursor-pointer hover:bg-slate-950 flex justify-between transition-all duration-200 ${
-          dropIsOpen ? "bg-gray-700/80" : "bg-slate-800/30"
-        }`}
-        onClick={() => setDropIsOpen(!dropIsOpen)}
+        className={`w-full h-auto p-1 cursor-pointer hover:bg-slate-950 flex justify-between transition-all duration-200 ${dropIsOpen ? "bg-gray-700/80" : "bg-slate-800/30"
+          }`}
+        onClick={() => {
+          action?.();
+          setDropIsOpen(!dropIsOpen)
+        }}
       >
         <div
           className={`w-max ps-2 ${
